@@ -1,12 +1,11 @@
 // The Daily Frame — entry program for make.fun's news-image-20261119.
 //
-// Morning v1 edition: the first hours of Thursday 19 November 2026 —
-// 13 stories across 5 continents, one front page and a map. The entry
-// image is the committed entry.png beside this file: a newspaper front
-// page typeset as design.html and rendered to PNG by render.mjs during
-// the build.
+// Rebuilt morning edition: the first hours of Thursday 19 November 2026 —
+// 13 stories across 5 continents, one front page and a map. The entry image
+// is the committed entry.png beside this file: a newspaper front page
+// typeset as design.html and rendered to PNG by render.mjs during the build.
 //
-// This program is deliberately boring: it verifies the committed image
+// This program is deliberately boring: it checks the committed image
 // against the competition gate (a whole PNG or JPEG, at most 1 MiB, at most
 // 1024x1024) and then copies it byte for byte to the output directory, so
 // the grader's two runs always produce identical bytes.
