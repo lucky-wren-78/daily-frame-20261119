@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Daily Frame — Thursday 19 November 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1024px; height: 1024px; }
+  body {
+    font-family: "Liberation Sans", Arial, Helvetica, sans-serif;
+    background: #f6f1e6;
+    color: #16130d;
+    padding: 12px 34px 12px 34px;
+    display: flex; flex-direction: column;
+  }
+  .serif { font-family: Georgia, "Liberation Serif", "Times New Roman", serif; }
+
+  /* ---------- masthead ---------- */
+  .masthead { display: flex; justify-content: space-between; align-items: flex-end; }
+  .brand h1 {
+    font-family: Georgia, "Liberation Serif", serif;
+    font-size: 46px; letter-spacing: 1px; line-height: 1; font-weight: 700;
+  }
+  .brand .tag {
+    margin-top: 5px; font-size: 13px; letter-spacing: 3px; font-weight: 700; color: #5a5344;
+  }
+  .datebox { text-align: right; }
+  .datebox .dow {
+    display: inline-block; background: #b3202a; color: #fff; font-weight: 700;
+    font-size: 15px; letter-spacing: 4px; padding: 4px 10px 3px 14px;
+  }
+  .datebox .date {
+    font-family: Georgia, "Liberation Serif", serif;
+    font-size: 28px; font-weight: 700; color: #b3202a; line-height: 1.12; margin-top: 4px;
+  }
+  .datebox .sub { font-size: 12.5px; letter-spacing: 1.6px; color: #5a5344; font-weight: 700; margin-top: 2px; }
+  .rule-double { border-top: 4px solid #16130d; border-bottom: 1.5px solid #16130d; height: 4px; margin: 7px 0 6px 0; }
+
+  /* ---------- wire ticker ---------- */
+  .ticker {
+    font-size: 11.5px; letter-spacing: 0.4px; color: #2c2820;
+    border-bottom: 1.5px solid #16130d; padding-bottom: 6px; margin-bottom: 8px;
+    white-space: nowrap; overflow: hidden;
+  }
+  .ticker b { color: #b3202a; letter-spacing: 2px; }
+  .ticker span.sep { color: #b3202a; font-weight: 700; padding: 0 6px; }
+
+  /* ---------- lead ---------- */
+  .lead { display: flex; gap: 20px; }
+  .lead .txt { flex: 1 1 58%; }
+  .lead .art { flex: 1 1 42%; }
+  .chip {
+    display: inline-block; color: #fff; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; padding: 3px 8px 2px 8px; margin-bottom: 5px;
+  }
+  .lead h2 {
+    font-family: Georgia, "Liberation Serif", serif;
+    font-size: 31px; line-height: 1.08; font-weight: 700;
+  }
+  .lead p { font-size: 14px; line-height: 1.36; margin-top: 7px; color: #2c2820; }
+  .lead p b { color: #16130d; }
+
+  /* ---------- map band ---------- */
+  .mapband { display: flex; gap: 14px; margin-top: 14px; }
+  .map { flex: 0 0 648px; background: #e9e2cf; border-top: 2.5px solid #16130d; padding: 7px 8px 5px 8px; }
+  .map .maptitle { font-size: 11.5px; font-weight: 700; letter-spacing: 2px; color: #16130d; }
+  .map .mapleg { font-size: 9.5px; letter-spacing: 0.2px; color: #5a5344; margin-top: 3px; line-height: 1.4; }
+  .map .mapleg b { color: #b3202a; }
+  .map .mapcount { font-size: 9.5px; letter-spacing: 1px; color: #16130d; font-weight: 700; margin-top: 3px; }
+  .numbers { flex: 1; background: #16130d; color: #f6f1e6; padding: 9px 12px 8px 12px; }
+  .numbers .ntitle { font-size: 11.5px; font-weight: 700; letter-spacing: 2px; color: #ffb3ab; }
+  .numbers .nrow { display: flex; justify-content: space-between; margin-top: 7px; }
+  .numbers .ncell { flex: 1; }
+  .numbers .nbig {
+    font-family: Georgia, "Liberation Serif", serif;
+    font-size: 25px; font-weight: 700; line-height: 1; color: #fff;
+  }
+  .numbers .nlab { font-size: 10px; letter-spacing: 1.2px; font-weight: 700; color: #c9c2ae; margin-top: 3px; line-height: 1.3; }
+  .numbers .nnote { font-size: 11px; line-height: 1.5; color: #d8d2bd; margin-top: 9px; border-top: 1px solid #4a4436; padding-top: 7px; }
+  .numbers .nnote b { color: #fff; }
+
+  /* ---------- grid ---------- */
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px 18px; margin-top: 14px;
+  }
+  .card { border-top: 2.5px solid #16130d; padding-top: 5px; }
+  .card h3 {
+    font-family: Georgia, "Liberation Serif", serif;
+    font-size: 14.5px; line-height: 1.14; font-weight: 700;
+  }
+  .card p { font-size: 11.5px; line-height: 1.3; color: #33302a; margin-top: 4px; }
+  .card .num {
+    display: inline-block; background: #b3202a; color: #fff; font-size: 10px; font-weight: 700;
+    width: 15px; height: 15px; line-height: 15px; text-align: center; border-radius: 50%;
+    margin-right: 4px; vertical-align: 1px;
+  }
+
+  /* ---------- briefs ---------- */
+  .briefs { border-top: 2.5px solid #16130d; margin-top: 14px; padding-top: 6px; }
+  .briefs .btitle { font-size: 11.5px; font-weight: 700; letter-spacing: 2px; margin-bottom: 5px; }
+  .briefs .btitle span { color: #b3202a; }
+  .bgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px 18px; }
+  .brief { font-size: 11.5px; line-height: 1.32; color: #2c2820; }
+  .brief b { color: #16130d; }
+
+  /* ---------- footer ---------- */
+  .footer {
+    margin-top: auto; display: flex; justify-content: space-between;
+    font-size: 11.5px; letter-spacing: 1.2px; color: #5a5344; font-weight: 700;
+    border-top: 1.5px solid #16130d; padding-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="masthead">
+    <div class="brand">
+      <h1>THE DAILY FRAME</h1>
+      <div class="tag">THE WHOLE WORLD &middot; ONE DAY &middot; ONE FRAME</div>
+    </div>
+    <div class="datebox">
+      <span class="dow">THURSDAY</span>
+      <div class="date">19 NOVEMBER 2026</div>
+      <div class="sub">13 STORIES &middot; 5 CONTINENTS &middot; ONE MAP</div>
+    </div>
+  </div>
+  <div class="rule-double"></div>
+
+  <div class="ticker"><b>WIRE</b> &mdash; APEC trilateral due 14:30 Shenzhen <span class="sep">&middot;</span> ANT first trade on Nasdaq <span class="sep">&middot;</span> Akvan landfall Friday noon <span class="sep">&middot;</span> Colombia strike marches 09:00 Bogot&aacute;</div>
+
+  <div class="lead">
+    <div class="txt">
+      <span class="chip" style="background:#b3202a">1 &middot; ASIA &middot; SUMMIT</span>
+      <h2>APEC day two: leaders gather as a first Trump&ndash;Xi&ndash;Putin trilateral looms</h2>
+      <p>Xi Jinping addressed the APEC plenary in Shenzhen on Thursday morning,
+      hours before a scheduled bilateral with Donald Trump at 12:45. The
+      <b>first-ever three-way meeting</b> of Trump, Xi and Vladimir Putin is due
+      at about 14:30 at the Kylin Villa, with Ukraine, the Iran war, trade, AI
+      and nuclear weapons on the agenda. No summit decisions had been announced
+      by the morning.</p>
+    </div>
+    <div class="art">
+      <svg width="100%" height="170" viewBox="0 0 380 190">
+        <rect x="0" y="0" width="380" height="190" fill="#e9e2cf"/>
+        <circle cx="322" cy="34" r="19" fill="#d9a441"/>
+        <g fill="#3d3a33">
+          <rect x="14" y="82" width="28" height="86"/>
+          <rect x="52" y="56" width="22" height="112"/>
+          <rect x="84" y="96" width="32" height="72"/>
+          <rect x="126" y="38" width="18" height="130"/>
+          <rect x="154" y="72" width="26" height="96"/>
+          <rect x="240" y="64" width="24" height="104"/>
+          <rect x="274" y="30" width="16" height="138"/>
+          <rect x="300" y="86" width="30" height="82"/>
+          <rect x="340" y="58" width="20" height="110"/>
+        </g>
+        <g fill="#f6f1e6">
+          <rect x="56" y="64" width="4" height="6"/><rect x="66" y="78" width="4" height="6"/><rect x="56" y="96" width="4" height="6"/><rect x="56" y="114" width="4" height="6"/>
+          <rect x="130" y="48" width="3" height="6"/><rect x="130" y="66" width="3" height="6"/><rect x="130" y="84" width="3" height="6"/><rect x="130" y="102" width="3" height="6"/>
+          <rect x="278" y="40" width="3" height="6"/><rect x="278" y="58" width="3" height="6"/><rect x="278" y="76" width="3" height="6"/><rect x="278" y="94" width="3" height="6"/>
+          <rect x="244" y="74" width="4" height="6"/><rect x="254" y="92" width="4" height="6"/><rect x="244" y="110" width="4" height="6"/>
+          <rect x="344" y="68" width="4" height="6"/><rect x="344" y="86" width="4" height="6"/><rect x="344" y="104" width="4" height="6"/>
+        </g>
+        <rect x="186" y="104" width="50" height="34" fill="#b3202a"/>
+        <text x="211" y="127" font-family="Liberation Sans, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">APEC</text>
+        <rect x="0" y="168" width="380" height="22" fill="#7fa6b8"/>
+        <path d="M0 173 Q 30 167 60 173 T 120 173 T 180 173 T 240 173 T 300 173 T 360 173" stroke="#5d8699" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="mapband">
+    <div class="map">
+      <div class="maptitle">THE DAY ON THE MAP &mdash; NUMBERED TO THE STORIES BELOW</div>
+      <svg width="632" height="150" viewBox="0 0 1000 210" preserveAspectRatio="none" style="display:block; margin-top:3px;">
+        <!-- ocean -->
+        <rect x="0" y="0" width="1000" height="210" fill="#c7dde2"/>
+        <!-- graticule -->
+        <g stroke="#ffffff" stroke-width="1" opacity="0.55">
+          <line x1="167" y1="0" x2="167" y2="210"/><line x1="333" y1="0" x2="333" y2="210"/>
+          <line x1="500" y1="0" x2="500" y2="210"/><line x1="667" y1="0" x2="667" y2="210"/>
+          <line x1="833" y1="0" x2="833" y2="210"/>
+          <line x1="0" y1="23" x2="1000" y2="23"/><line x1="0" y1="117" x2="1000" y2="117"/>
+          <line x1="0" y1="163" x2="1000" y2="163"/>
+        </g>
+        <!-- land (simplified equirectangular, drawn for this edition) -->
+        <g fill="#d9cfae" stroke="#8a7f5c" stroke-width="1.5">
+          <path d="M40,32 L110,24 L170,18 L225,14 L258,20 L282,28 L305,44 L322,56 L305,62 L285,68 L268,76 L248,84 L215,82 L192,74 L165,68 L140,58 L112,48 L72,40 L46,38 Z"/>
+          <path d="M348,10 L372,8 L380,18 L362,26 L348,20 Z"/>
+          <path d="M298,94 L330,90 L360,94 L382,104 L396,118 L388,134 L372,150 L356,162 L340,158 L330,144 L320,128 L304,114 L294,104 Z"/>
+          <path d="M478,42 L508,32 L538,30 L568,34 L598,30 L614,38 L600,48 L574,52 L548,50 L524,56 L500,52 L484,48 Z"/>
+          <path d="M490,74 L520,66 L552,64 L582,68 L602,76 L610,86 L604,102 L594,118 L580,132 L566,138 L550,130 L540,114 L524,104 L504,94 L492,84 Z"/>
+          <path d="M642,30 L700,20 L760,18 L820,20 L880,22 L940,26 L980,30 L958,40 L930,46 L900,52 L872,58 L842,62 L822,70 L802,78 L782,86 L760,90 L742,88 L720,80 L700,74 L678,68 L660,58 L646,48 Z"/>
+          <path d="M790,80 L810,84 L806,100 L796,106 L788,94 Z"/>
+          <path d="M828,86 L848,90 L844,106 L834,108 L828,96 Z"/>
+          <path d="M906,44 L920,38 L930,46 L920,56 L908,52 Z"/>
+          <ellipse cx="836" cy="122" rx="7" ry="4"/>
+          <ellipse cx="872" cy="118" rx="9" ry="4"/>
+          <ellipse cx="904" cy="112" rx="8" ry="4"/>
+          <path d="M850,130 L880,126 L912,130 L926,138 L916,148 L890,152 L864,148 L852,140 Z"/>
+          <path d="M956,150 L968,146 L972,156 L960,162 Z"/>
+          <path d="M482,34 L494,30 L498,38 L488,42 Z"/>
+        </g>
+        <!-- ocean labels -->
+        <g font-family="Liberation Sans, Arial, sans-serif" font-size="11" letter-spacing="3" fill="#5d8699" font-weight="700">
+          <text x="70" y="160">PACIFIC</text>
+          <text x="380" y="150">ATLANTIC</text>
+          <text x="700" y="185">INDIAN</text>
+        </g>
+        <!-- numbered dots for the 13 stories -->
+        <g font-family="Liberation Sans, Arial, sans-serif" font-weight="700" text-anchor="middle">
+          <g><circle cx="842" cy="72" r="9" fill="#b3202a"/><text x="842" y="76" font-size="10" fill="#fff">1</text></g>
+          <g><circle cx="258" cy="78" r="9" fill="#b3202a"/><text x="258" y="82" font-size="10" fill="#fff">2</text></g>
+          <g><circle cx="165" cy="58" r="9" fill="#b3202a"/><text x="165" y="62" font-size="10" fill="#fff">3</text></g>
+          <g><circle cx="798" cy="70" r="9" fill="#b3202a"/><text x="798" y="74" font-size="10" fill="#fff">4</text></g>
+          <g><circle cx="872" cy="52" r="9" fill="#b3202a"/><text x="872" y="56" font-size="10" fill="#fff">5</text></g>
+          <g><circle cx="818" cy="88" r="9" fill="#b3202a"/><text x="818" y="92" font-size="10" fill="#fff">6</text></g>
+          <g><circle cx="912" cy="48" r="9" fill="#b3202a"/><text x="912" y="52" font-size="10" fill="#fff">7</text></g>
+          <g><circle cx="958" cy="150" r="9" fill="#b3202a"/><text x="958" y="154" font-size="10" fill="#fff">8</text></g>
+          <g><circle cx="926" cy="62" r="9" fill="#b3202a"/><text x="926" y="66" font-size="10" fill="#fff">9</text></g>
+          <g><circle cx="844" cy="102" r="9" fill="#b3202a"/><text x="844" y="105" font-size="9" fill="#fff">10</text></g>
+          <g><circle cx="288" cy="62" r="9" fill="#b3202a"/><text x="288" y="65" font-size="9" fill="#fff">11</text></g>
+          <g><circle cx="508" cy="44" r="9" fill="#b3202a"/><text x="508" y="47" font-size="9" fill="#fff">12</text></g>
+          <g><circle cx="312" cy="112" r="9" fill="#b3202a"/><text x="312" y="115" font-size="9" fill="#fff">13</text></g>
+        </g>
+      </svg>
+      <div class="mapleg"><b>1</b> Shenzhen &middot; <b>2</b> Miami &middot; <b>3</b> San Francisco &middot; <b>4</b> Dhaka &middot; <b>5</b> Seoul &middot; <b>6</b> Bay of Bengal &middot; <b>7</b> Tokyo &middot; <b>8</b> Wellington &middot; <b>9</b> Tokyo &middot; <b>10</b> Pattaya &middot; <b>11</b> Washington &middot; <b>12</b> Brussels &middot; <b>13</b> Bogot&aacute;</div>
+      <div class="mapcount">ASIA 7 &middot; NORTH AMERICA 3 &middot; EUROPE 1 &middot; OCEANIA 1 &middot; SOUTH AMERICA 1</div>
+    </div>
+    <div class="numbers">
+      <div class="ntitle">THE DAY IN NUMBERS</div>
+      <div class="nrow">
+        <div class="ncell"><div class="nbig">13</div><div class="nlab">STORIES IN THIS EDITION</div></div>
+        <div class="ncell"><div class="nbig">5</div><div class="nlab">CONTINENTS COVERED</div></div>
+      </div>
+      <div class="nrow">
+        <div class="ncell"><div class="nbig">551,864</div><div class="nlab">CSAT CANDIDATES IN KOREA</div></div>
+        <div class="ncell"><div class="nbig">$83</div><div class="nlab">ANTHROPIC&rsquo;S IPO PRICE</div></div>
+      </div>
+      <div class="nnote"><b>980m shares</b> in the Anthropic listing &middot; <b>90&ndash;110 km/h</b> Akvan landfall Friday &middot; <b>60/4</b> New Zealand at lunch &middot; <b>565</b> arrested in Dhaka in 24 hours</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="chip" style="background:#5b4bc4"><span class="num">2</span> NORTH AMERICA &middot; GAMES</span>
+      <h3>GTA VI launches worldwide at midnight</h3>
+      <p>Grand Theft Auto VI went on sale at midnight local time in every region,
+      on PlayStation 5 and Xbox Series X|S, with the rollout beginning in New
+      Zealand. The standard edition costs <b>$79.99</b>; there is no PC date
+      yet. It follows a day after reviews scored it 99 on Metacritic.</p>
+    </div>
+    <div class="card">
+      <span class="chip" style="background:#1e7d46"><span class="num">3</span> NORTH AMERICA &middot; MARKETS</span>
+      <h3>Anthropic debuts on the Nasdaq as ANT</h3>
+      <p>Shares of the AI developer start trading on the Nasdaq today, a day
+      after pricing at <b>$83</b> in an enlarged 980-million-share offering
+      worth about $81.3bn &mdash; the largest IPO ever, valuing the company at
+      about $1.5tn. The co-founders ring the opening bell.</p>
+    </div>
+    <div class="card">
+      <span class="chip" style="background:#7a1f1f"><span class="num">4</span> ASIA &middot; UNREST</span>
+      <h3>Bangladesh: lockdown day brings bombs and arrests</h3>
+      <p>The Awami League&rsquo;s nationwide lockdown fell on Thursday, with
+      crude-bomb blasts in Dhaka and <b>565 people arrested</b> in the capital
+      in 24 hours, including 71 party and student-wing members. Overnight,
+      interim leader Yunus&rsquo;s ancestral home in Chattogram was torched.</p>
+    </div>
+    <div class="card">
+      <span class="chip" style="background:#274b73"><span class="num">5</span> ASIA &middot; EDUCATION</span>
+      <h3>551,864 Koreans sit the CSAT exam</h3>
+      <p>South Korea&rsquo;s university entrance exam ran 08:40&ndash;17:45 at
+      1,312 centres, with glasses and button inspections and 8,400 extra
+      supervisors to stop AI cheating. Flights were halted 13:05&ndash;13:40
+      for the English listening test; the market opened an hour late.</p>
+    </div>
+    <div class="card">
+      <span class="chip" style="background:#0e7c86"><span class="num">6</span> ASIA &middot; WEATHER</span>
+      <h3>Akvan eases; landfall now seen at 90&ndash;110 km/h Friday</h3>
+      <p>The India Meteorological Department scaled down its forecast in the
+      05:30 bulletin: the storm should cross between Narsapur and Puri by
+      noon Friday as a severe cyclone, not a very severe one. Odisha shut
+      schools in six districts for three days and evacuated 50,000 people.</p>
+    </div>
+    <div class="card">
+      <span class="chip" style="background:#1d6fb8"><span class="num">7</span> ASIA &middot; DIPLOMACY</span>
+      <h3>India and Japan hold their fourth 2+2 in Tokyo</h3>
+      <p>Defence Minister Rajnath Singh and External Affairs Minister
+      Jaishankar met Japan&rsquo;s Koizumi and Motegi to review defence and
+      strategic cooperation and a free and open Indo-Pacific. It is Singh&rsquo;s
+      third bilateral with Koizumi this year.</p>
+    </div>
+  </div>
+
+  <div class="briefs">
+    <div class="btitle">MORE FROM THURSDAY <span>&mdash; 6 BRIEFS FROM EVERY CONTINENT</span></div>
+    <div class="bgrid">
+      <div class="brief"><b>8 &middot; New Zealand 60/4 at lunch</b> in the Wellington Test; Bumrah 2/17.</div>
+      <div class="brief"><b>9 &middot; Asian markets rise</b> on the Anthropic IPO; Nikkei up about 1%.</div>
+      <div class="brief"><b>10 &middot; Para table tennis finals</b> close the Pattaya championships today.</div>
+      <div class="brief"><b>11 &middot; US AI-chip rule</b> takes effect, closing the remote-access loophole.</div>
+      <div class="brief"><b>12 &middot; EU Parliament committee</b> votes today on the Space Act.</div>
+      <div class="brief"><b>13 &middot; Colombia strike:</b> unions march against the Economic Rescue Law.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>THE DAILY FRAME &middot; 13 STORIES, 5 CONTINENTS, ONE DAY</span>
+    <span>EVERY STORY CHECKED AGAINST TWO OR MORE SOURCES</span>
+  </div>
+
+</body>
+</html>
