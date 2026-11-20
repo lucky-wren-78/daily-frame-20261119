@@ -1,8 +1,8 @@
-// Renders design.html to entry.png at exactly 1024x1024 with headless Chromium.
+// Renders design.html into entry.png at exactly 1024x1024.
 //
-// This is a build-time tool only: the grader never runs it. The entry program
-// (main.ts) copies the committed entry.png, which this script produced.
-// Playwright is resolved from the workspace tools folder used for this build.
+// Build-time only: the grader never runs this script; it runs main.ts,
+// which copies the entry.png this script produces. Chromium comes from the
+// Playwright install in the workspace tools folder.
 //
 //   node render.mjs            (run from this directory)
 
@@ -11,15 +11,22 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const toolsPkg = join(process.env.HOME ?? '', 'workspace/makefun/tools-browser/package.json');
-const { chromium } = createRequire(toolsPkg)('playwright');
+const toolsPackage = join(
+  process.env.HOME ?? '',
+  'workspace/makefun/tools-browser/package.json',
+);
+const { chromium } = createRequire(toolsPackage)('playwright');
 
 const browser = await chromium.launch();
 try {
-  const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } });
-  await page.goto('file://' + join(here, 'design.html'), { waitUntil: 'load' });
+  const page = await browser.newPage({
+    viewport: { width: 1024, height: 1024 },
+  });
+  await page.goto('file://' + join(here, 'design.html'), {
+    waitUntil: 'load',
+  });
   await page.screenshot({ path: join(here, 'entry.png') });
-  console.log('wrote entry.png (1024x1024)');
+  console.log('rendered entry.png at 1024x1024');
 } finally {
   await browser.close();
 }
