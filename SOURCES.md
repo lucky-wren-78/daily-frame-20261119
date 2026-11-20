@@ -1,15 +1,16 @@
 # Sources — what each panel of entry.png is based on
 
-All 30 stories happened, or were first reported, on Thursday 19 November
-2026 (in some time zone). Compiled 20 November 2026, after the UTC day had
-fully ended, from reporting dated 19 November; every story is backed by at
-least two independent sources. Numbering matches the numbered dots on the
-world map, the numbered chips on the cards, and the numbered briefs. No
-story is reported as held unless it had actually happened by the end of the
-day; the SpaceX launch (USSF-317) is reported as targeted for the evening,
-because no confirmed liftoff report was available at compilation time.
+Every one of the 30 stories happened, or was first reported, on Thursday
+19 November 2026 (in some time zone). The day was compiled on 20 November
+2026, once the UTC day had fully ended, from reporting dated 19 November;
+each story rests on at least two independent sources. The numbering matches
+the numbered dots on the world map, the numbered badges on the six cards,
+and the numbered briefs. Nothing is shown as having happened unless it had
+actually happened by the end of the day; the SpaceX launch (USSF-317) is
+described as due, not flown, because no confirmed liftoff report was
+available at compilation time.
 
-## The lead and the cards
+## The lead and the six cards
 
 ### 1 — APEC: Trump, Xi and Putin hold the first-ever trilateral and issue a "Declaration Towards Peace" (lead)
 On the sidelines of APEC in Shenzhen, Donald Trump, Xi Jinping and Vladimir

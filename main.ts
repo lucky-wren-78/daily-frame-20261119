@@ -1,61 +1,76 @@
 // The Daily Frame — entry program for the make.fun news-image-20261119 bounty.
 //
-// Full-day edition: thirty stories from Thursday 19 November 2026, six
-// continents, set as one newspaper front page. The page itself lives in
-// design.html; render.mjs (a build-time helper, never run by the grader)
-// typesets it into the entry.png committed next to this file.
+// This is the full-day edition for Thursday 19 November 2026: thirty
+// stories from six continents, laid out as a single newspaper front page.
+// The page is typeset in design.html; render.mjs (a build-time helper the
+// grader never runs) turns it into the entry.png committed beside this file.
 //
-// This program does nothing clever on purpose. It sanity-checks the
-// committed picture against the competition's image gate — a whole PNG or
-// JPEG, no more than 1 MiB, no side longer than 1024 px — and then copies
-// it byte for byte into the output directory. Two runs therefore always
-// hand the grader identical bytes.
+// The program is deliberately boring. It reads the committed picture,
+// checks it against the competition's image gate (one PNG or JPEG, at most
+// 1 MiB, no side longer than 1024 px), and copies it unchanged into the
+// output directory. Because nothing here depends on the clock, the network
+// or any random input, two runs always deliver identical bytes.
 //
-// Run it outside the grader container like this:
+// Try it outside the grader container with:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
 import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const picture = new URL('./entry.png', import.meta.url);
-const bytes = readFileSync(picture);
+const ENTRY = new URL('./entry.png', import.meta.url);
+const OUT_NAME = 'entry.png';
 
-// --- gate self-checks -------------------------------------------------------
+// Competition gate, as stated in the kit's RULES.txt.
+const LIMIT = { bytes: 1_048_576, side: 1024 } as const;
 
-const MAX_BYTES = 1_048_576; // 1 MiB, the competition's cap
-const MAX_SIDE = 1024; // the gate allows at most 1024x1024
-if (bytes.length > MAX_BYTES) {
-  throw new Error(
-    `entry.png is ${bytes.length} bytes, over the ${MAX_BYTES}-byte cap`,
-  );
+function fail(message: string): never {
+  throw new Error(`entry.png failed the image gate: ${message}`);
 }
 
-const PNG_SIG = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
-const isPng = PNG_SIG.every((b, i) => bytes[i] === b);
-const isJpeg = bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
-if (!isPng && !isJpeg) {
-  throw new Error('entry.png is neither a PNG nor a JPEG');
+function pngDimensions(buf: Buffer): { width: number; height: number } {
+  // In a PNG the width and height sit at byte offsets 16 and 20 as
+  // big-endian 32-bit integers, right after the 8-byte signature and the
+  // 8-byte IHDR length/type header.
+  return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
 }
 
-if (isPng) {
-  // PNG header: width and height are big-endian uint32s at offsets 16 and 20.
-  const width = bytes.readUInt32BE(16);
-  const height = bytes.readUInt32BE(20);
-  if (width > MAX_SIDE || height > MAX_SIDE) {
-    throw new Error(
-      `entry.png is ${width}x${height}, over the ${MAX_SIDE}x${MAX_SIDE} cap`,
-    );
+function looksComplete(buf: Buffer, kind: 'png' | 'jpeg'): boolean {
+  if (kind === 'png') {
+    // A well-formed PNG ends with the empty IEND chunk and its fixed CRC.
+    const tail = Buffer.from('0000000049454e44ae426082', 'hex');
+    return buf.subarray(buf.length - tail.length).equals(tail);
   }
-  // A complete PNG ends with the empty IEND chunk and its fixed CRC.
-  const iend = Buffer.from('0000000049454e44ae426082', 'hex');
-  if (!bytes.subarray(bytes.length - iend.length).equals(iend)) {
-    throw new Error('entry.png has no IEND tail; the file looks truncated');
-  }
+  // A JPEG ends with the end-of-image marker 0xFF 0xD9.
+  return buf[buf.length - 2] === 0xff && buf[buf.length - 1] === 0xd9;
 }
 
-// --- deliver ----------------------------------------------------------------
+function detectKind(buf: Buffer): 'png' | 'jpeg' | null {
+  const pngSig = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+  if (pngSig.every((byte, i) => buf[i] === byte)) return 'png';
+  if (buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return 'jpeg';
+  return null;
+}
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-mkdirSync(outDir, { recursive: true });
-copyFileSync(picture, join(outDir, 'entry.png'));
-console.log(`copied entry.png (${bytes.length} bytes) to ${outDir}`);
+const image = readFileSync(ENTRY);
+
+if (image.length > LIMIT.bytes) {
+  fail(`it is ${image.length} bytes, over the ${LIMIT.bytes}-byte cap`);
+}
+
+const kind = detectKind(image);
+if (kind === null) fail('it is neither a PNG nor a JPEG');
+
+if (kind === 'png') {
+  const { width, height } = pngDimensions(image);
+  if (width > LIMIT.side || height > LIMIT.side) {
+    fail(`it is ${width}x${height}, over the ${LIMIT.side}x${LIMIT.side} cap`);
+  }
+}
+if (!looksComplete(image, kind)) {
+  fail('its tail marker is missing; the file looks truncated');
+}
+
+const destination = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+mkdirSync(destination, { recursive: true });
+copyFileSync(ENTRY, join(destination, OUT_NAME));
+console.log(`delivered ${OUT_NAME} (${image.length} bytes) to ${destination}`);
